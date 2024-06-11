@@ -21,9 +21,10 @@ class ProjectController extends Controller
 
     public function show($slug){
 
-        $project = Project::where('slug', '=', $slug)->whith('technologies', 'type')->first();
+        $project = Project::where('slug', '=', $slug)->with('technologies', 'type')->first();
 
-        if ($project) {
+
+        if($project){
             
             $data = [
 
@@ -31,14 +32,15 @@ class ProjectController extends Controller
                 'project' => $project,
 
             ];
-        } else{
 
+        }else{
+            
             $data = [
 
                 'success' => false,
                 'error' => 'No project with this url has been found',
             ];
-        };
+        }
 
         return response()->json($data);
     }
